@@ -45,7 +45,7 @@ void app_main(void)
 
     while(1) {
         if(gpio_get_level(IGNITION_GPIO)){
-            if(gpio_get_level(DRIVER_GPIO) && gpio_get_level(PASSENGER_GPIO) && gpio_get_level(PASSENGER_SEATBELT_GPIO) && gpio_get_level(DRIVER_SEATBELT_GPIO)){
+            if (gpio_get_level(DRIVER_GPIO) && gpio_get_level(PASSENGER_GPIO) && gpio_get_level(PASSENGER_SEATBELT_GPIO) && gpio_get_level(DRIVER_SEATBELT_GPIO)){
                 while(1){
                     gpio_set_level(GREENLED_GPIO, 0);
                     gpio_set_level(BLUELED_GPIO, 1);
@@ -59,8 +59,23 @@ void app_main(void)
                 }
             }
         }
-        else if(gpio_get_level(DRIVER_GPIO) && gpio_get_level(PASSENGER_GPIO) && gpio_get_level(PASSENGER_SEATBELT_GPIO) && gpio_get_level(DRIVER_SEATBELT_GPIO)){
+        else if((gpio_get_level(DRIVER_GPIO)) && (gpio_get_level(PASSENGER_GPIO)) && (gpio_get_level(PASSENGER_SEATBELT_GPIO)) && (gpio_get_level(DRIVER_SEATBELT_GPIO))){
             gpio_set_level(GREENLED_GPIO, 1);
+            if(gpio_get_level(DRIVER_GPIO)){
+                printf("driver \n");
+            }
+            if(gpio_get_level(PASSENGER_GPIO)){
+                printf("passenger \n");
+            }
+            if (gpio_get_level(PASSENGER_SEATBELT_GPIO))
+            {
+                printf("passenger seatbelt \n");
+            }
+            if (gpio_get_level(DRIVER_SEATBELT_GPIO))
+            {
+                printf("driver seatbelt \n");
+            }
+            vTaskDelay(1000/ portTICK_PERIOD_MS);
         }
         else{
             gpio_set_level(GREENLED_GPIO, 0);
