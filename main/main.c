@@ -43,5 +43,28 @@ void app_main(void)
     gpio_reset_pin(BUZZER_GPIO);
     gpio_set_direction(BUZZER_GPIO, GPIO_MODE_OUTPUT);
 
-    
-}
+    while(1) {
+        if(gpio_get_level(IGNITION_GPIO) == 1){
+            if(gpio_get_level(DRIVER_GPIO) == 1 && gpio_get_level(PASSENGER_GPIO) == 1 && gpio_get_level(PASSENGER_SEATBELT_GPIO) == 1 && gpio_get_level(DRIVER_SEATBELT_GPIO) == 1){
+                while(1){
+                    gpio_set_level(GREENLED_GPIO, 0);
+                    gpio_set_level(BLUELED_GPIO, 1);
+                    vTaskDelay(25/  portTICK_PERIOD_MS);
+                }
+            }
+            else{
+                while(1){
+                    gpio_set_level(BUZZER_GPIO, 1);
+                    vTaskDelay(25/  portTICK_PERIOD_MS);
+                }
+            }
+        }
+        else if(gpio_get_level(DRIVER_GPIO) == 1 && gpio_get_level(PASSENGER_GPIO) == 1 && gpio_get_level(PASSENGER_SEATBELT_GPIO) == 1 && gpio_get_level(DRIVER_SEATBELT_GPIO) == 1){
+            gpio_set_level(GREENLED_GPIO, 1);
+        }
+        else{
+            gpio_set_level(GREENLED_GPIO, 1);
+        }
+        vTaskDelay(25/  portTICK_PERIOD_MS);
+    }
+}   
