@@ -43,6 +43,7 @@ void app_main(void)
     gpio_set_direction(BUZZER_GPIO, GPIO_MODE_OUTPUT);
 
     bool carOn = 0;
+    printf("\n");
     while(1) {
         if(gpio_get_level(IGNITION_GPIO)){
             if (gpio_get_level(DRIVER_GPIO) && gpio_get_level(PASSENGER_GPIO) && gpio_get_level(PASSENGER_SEATBELT_GPIO) && gpio_get_level(DRIVER_SEATBELT_GPIO)){
@@ -63,7 +64,7 @@ void app_main(void)
                 if(!gpio_get_level(DRIVER_SEATBELT_GPIO)){
                     printf("Driver seatbelt not fastened \n");
                 }
-                                if(!gpio_get_level(DRIVER_GPIO)){
+                if(!gpio_get_level(PASSENGER_SEATBELT_GPIO)){
                     printf("Passenger seatbelt not fastened \n");
                 }
                 while(1){
@@ -81,7 +82,6 @@ void app_main(void)
         else{
             carOn = 0;
         }
-
         if((gpio_get_level(DRIVER_GPIO)) && (gpio_get_level(PASSENGER_GPIO)) && (gpio_get_level(PASSENGER_SEATBELT_GPIO)) && (gpio_get_level(DRIVER_SEATBELT_GPIO))){
             gpio_set_level(GREENLED_GPIO, 1);
         }
