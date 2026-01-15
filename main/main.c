@@ -42,6 +42,7 @@ void app_main(void)
     gpio_reset_pin(BUZZER_GPIO);
     gpio_set_direction(BUZZER_GPIO, GPIO_MODE_OUTPUT);
 
+    bool carOn = 0;
     while(1) {
         if(gpio_get_level(IGNITION_GPIO)){
             if (gpio_get_level(DRIVER_GPIO) && gpio_get_level(PASSENGER_GPIO) && gpio_get_level(PASSENGER_SEATBELT_GPIO) && gpio_get_level(DRIVER_SEATBELT_GPIO)){
@@ -58,7 +59,17 @@ void app_main(void)
                 }
             }
         }
-        else if((gpio_get_level(DRIVER_GPIO)) && (gpio_get_level(PASSENGER_GPIO)) && (gpio_get_level(PASSENGER_SEATBELT_GPIO)) && (gpio_get_level(DRIVER_SEATBELT_GPIO))){
+        if(gpio_get_level(DRIVER_GPIO)){
+            if(!carOn){
+                printf("Welcome to enhanced alarm system model 218-W25 \n");
+                carOn = 1;
+            }
+        }
+        else{
+            carOn = 0;
+        }
+
+        if((gpio_get_level(DRIVER_GPIO)) && (gpio_get_level(PASSENGER_GPIO)) && (gpio_get_level(PASSENGER_SEATBELT_GPIO)) && (gpio_get_level(DRIVER_SEATBELT_GPIO))){
             gpio_set_level(GREENLED_GPIO, 1);
         }
         else{
