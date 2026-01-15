@@ -53,6 +53,19 @@ void app_main(void)
                 }
             }
             else{
+                printf("Ignition inhibited \n");
+                if(!gpio_get_level(DRIVER_GPIO)){
+                    printf("Driver seat not occupied \n");
+                }
+                if(!gpio_get_level(PASSENGER_GPIO)){
+                    printf("Passenger seat not occupied \n");
+                }
+                if(!gpio_get_level(DRIVER_SEATBELT_GPIO)){
+                    printf("Driver seatbelt not fastened \n");
+                }
+                                if(!gpio_get_level(DRIVER_GPIO)){
+                    printf("Passenger seatbelt not fastened \n");
+                }
                 while(1){
                     gpio_set_level(BUZZER_GPIO, 1);
                     vTaskDelay(25/  portTICK_PERIOD_MS);
