@@ -11,7 +11,6 @@
 #define BLUELED_GPIO GPIO_NUM_5
 #define BUZZER_GPIO GPIO_NUM_6
 
-
 void app_main(void)
 {
     gpio_reset_pin(DRIVER_GPIO);
@@ -61,21 +60,6 @@ void app_main(void)
         }
         else if((gpio_get_level(DRIVER_GPIO)) && (gpio_get_level(PASSENGER_GPIO)) && (gpio_get_level(PASSENGER_SEATBELT_GPIO)) && (gpio_get_level(DRIVER_SEATBELT_GPIO))){
             gpio_set_level(GREENLED_GPIO, 1);
-            if(gpio_get_level(DRIVER_GPIO)){
-                printf("driver \n");
-            }
-            if(gpio_get_level(PASSENGER_GPIO)){
-                printf("passenger \n");
-            }
-            if (gpio_get_level(PASSENGER_SEATBELT_GPIO))
-            {
-                printf("passenger seatbelt \n");
-            }
-            if (gpio_get_level(DRIVER_SEATBELT_GPIO))
-            {
-                printf("driver seatbelt \n");
-            }
-            vTaskDelay(1000/ portTICK_PERIOD_MS);
         }
         else{
             gpio_set_level(GREENLED_GPIO, 0);
